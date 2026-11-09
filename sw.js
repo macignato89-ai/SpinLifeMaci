@@ -1,7 +1,7 @@
 /* Contapunti Commander – offline support.
    Shows the saved copy instantly, then checks for a newer one in the background:
    after you upload a new index.html, the update appears the next time the app is opened. */
-const CACHE='contapunti-v1';
+const CACHE='contapunti-v2';
 const CORE=['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
